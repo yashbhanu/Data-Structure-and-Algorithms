@@ -57,7 +57,7 @@ int solve(int *arr, int n, int k) {
             maxi.pop_front();       
         }
 
-        while (!mini.empty() && i - maxi.front() >= k)  
+        while (!mini.empty() && i - mini.front() >= k)  
         {
             mini.pop_front();
         }
