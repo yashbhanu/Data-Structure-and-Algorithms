@@ -110,6 +110,60 @@ Node* maxVal(Node* root) {
     return temp;
 }
 
+//DELETION of a node => V.V. IMP for interviews
+Node* deleteFromBST(Node* root, int val) {
+
+    //base case
+    if(root == NULL)
+        return root;
+
+    // if the node to be deleted is found then proceed
+    if(root -> data == val) {
+
+        // node with 0 child // 0 child
+        if(root -> left == NULL && root -> right == NULL) {
+            delete root;            // simply return root
+            return NULL;            // and return NULL
+        }
+
+        //node with 1 child //1 child
+
+        //node with 1 child on left //left child
+        if(root -> left != NULL && root -> right == NULL) {
+            Node *temp = root -> left;          // store left child of root(node to be deleted)
+            delete root;                        // delete root(node to be deleted)
+            return temp;                        // return temp(left child of  the deleted node) // so it would move upwards
+        }
+
+        //node with 1 child on right //right child
+        if(root -> left == NULL && root -> right != NULL) {
+            Node *temp = root -> right;
+            delete root;
+            return temp;
+        }
+
+        //node with 2 child //2 child
+        if(root -> right != NULL && root -> left != NULL) {
+            // Two methods -> find the min value on right subtree OR the max value on left subtree and replace it root node(node to be deleted)
+            // here we have used 1st method to find the min value on right subtree
+            int mini = minVal(root -> right) -> data;                // find the min value on right subtree
+            root -> data = mini;                                    // replace with root node's data
+            root -> right = deleteFromBST(root -> right, mini);         // delete the min value node as its replaced with the deleted node
+            return root;
+        }
+    }
+    else if ( root -> data > val) {
+        root -> left = deleteFromBST(root -> left, val);
+        return root;
+    }
+    else if ( root -> data < val) {
+        root -> right = deleteFromBST(root -> right, val);
+        return root;
+    }
+
+}
+
+
 int main() {
 
     Node* root = NULL;          //initially take a pointer root and point it to NULL
@@ -122,6 +176,12 @@ int main() {
 
     cout << "Min val is " << minVal(root) -> data <<endl; 
     cout << "Max val is " << maxVal(root) -> data <<endl; 
+
+    //DELETION
+    root = deleteFromBST(root,7);
+
+    cout << "Printing BST " << endl;
+    levelOrderTraversal(root);
 
 return 0;
 }
