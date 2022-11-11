@@ -1,8 +1,9 @@
 #include <iostream>
+#include <queue>        // to use priority queue
 using namespace std;
 
 // A heap is a data structure which is a Complete Binary Tree(CBT i.e all levels are completely filled except the last level && nodes are added from the left side) && a heap follows heap order property
-// A heap order property contains 2 types of properties 1. Max heap : Parents node's data value is always greater than child node's data value  2. Min heap : Child node's data value is always smaller than child node's data value
+// A heap order property contains 2 types of properties 1. Max heap : Parents node's data value is always greater than child node's data value  2. Min heap : Parent node's data value is always smaller than child node's data value
 
 //create a heap using an array
 class Heap {
@@ -84,8 +85,51 @@ class Heap {
         }
         
     }
-
 };
+
+
+// Heapify Algoritm => A heapify algo. is to convert a given array into heap data structure // here we'll exclude leaf nodes as they already a heap by using n/2 formula // T.C O(logn)
+ void heapify(int arr[], int n, int i) {
+
+        int largest = i;            // i i.e current node shall be the largest
+        int left = 2*i;             // find current node's left & right child
+        int right = 2*i + 1;
+
+        //check if i(i.e current node/largest) is smaller than left child // if yes(the acc. to max heap property) , update largest to left (as left node's value is greater than ith(ie current))
+        if(left <= n && arr[largest] < arr[left]) {
+            largest = left;
+        }
+
+        //check if i(i.e current node/largest) is smaller than right child // if yes(the acc. to max heap property) , update largest to right (as right node's value is greater than ith(ie current))
+        if(right <= n && arr[largest] < arr[right]) {
+            largest = right;
+        }
+
+        // if largest value is updated (if its not equal to i bcz it set to i earlier) , that means we need to swap values
+        if(largest != i) {
+            swap(arr[largest], arr[i]);             // swap largest(right/left) with ith(current node)
+            heapify(arr, n, largest);               // use recursion to check for other nodes in the tree to create heap data structure with max heap property
+        }
+    }
+
+    //Sort a heap data structure // sort an array using heapSort
+    //dry run to understand better
+    void heapSort(int arr[], int n) {
+
+        int size = n;       //get size
+
+        //iterate the array reverse & sort till 2nd elem as the last elem remaining will be sorted only
+        while(size > 1) {
+
+            //step 1: swap // swap 1st and last elem // reduce size as one elem(i.e last elem gets in the sorted position)
+            swap(arr[size], arr[1]);
+            size--;
+
+            // step2  // apply heapify algo and put the swapped elem(i.e now 2st elem in array) in right position
+            heapify(arr, size, 1);
+        }
+
+    }
 
 int main() {
 
@@ -99,6 +143,61 @@ int main() {
 
     h.deleteFromHeap();
     h.print();
+
+
+    //Heapify // use below array to create a heap
+    int arr[6] = {-1,64,32,39,72,85};
+    int n = 5;
+    //start with n/2 from reverse as we are excluding leaf nodes // build heap -> T.C O(n)
+    for (int i = n/2; i > 0; i--)
+    {
+        heapify(arr, n, i);
+    }
+
+    cout << "printing the array " << endl;
+    for (int i = 1; i <= n; i++)
+    {
+        cout << arr[i] << " ";
+    } 
+    cout << endl;
+    
+    //heapSort // T.C -> O(nlog(n))
+    heapSort(arr, n);
+
+    cout << "printing sorted array " << endl;
+    for (int i = 1; i <= n; i++)
+    {
+        cout << arr[i] << " ";
+    } 
+    cout << endl;
+
+    //using STL to create a maxheap/minheap using priority queue
+    cout << "using STL's priority queue for heap " << endl;
+    
+    //maxheap
+    priority_queue<int> maxHeap;
+
+    maxHeap.push(3);
+    maxHeap.push(5);
+    maxHeap.push(2);
+    maxHeap.push(4);
+
+    cout << "top elem " << maxHeap.top() << endl;
+    maxHeap.pop();
+    cout << "top elem " << maxHeap.top() << endl;
+
+    //min heap
+    priority_queue<int, vector<int>, greater<int> > minHeap;
+
+    minHeap.push(3);
+    minHeap.push(5);
+    minHeap.push(2);
+    minHeap.push(4);
+
+    cout << "top elem " << minHeap.top() << endl;
+    minHeap.pop();
+    cout << "top elem " << minHeap.top() << endl;
+
 
 return 0;
 }
