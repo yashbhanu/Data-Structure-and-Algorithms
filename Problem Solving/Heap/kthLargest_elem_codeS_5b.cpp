@@ -6,6 +6,7 @@ using namespace std;
 // Approach -> using min heap -> run two for loops and find out the sum for sub arrays and push first k elems(eg. k=3) in min heap // then after pushing k(eg. 3 elems) in min heap // compare sum with miniHeap.top() i.e smallest elem
 // if sum is greater than mini.top() i.e smallest elem , pop the top elem(i.e smallest elem) and push the larger value of sum in min heap // after iterating the whole array, and comparing and pushing, mini.top() will have the 3rd largest elem // bcz of min heaps properties
 // dry run to understand better
+// ref -> https://www.codingninjas.com/codestudio/problems/k-th-largest-sum-contiguous-subarray_920398
 
 
 int getKthLargest(vector<int> &arr, int k)
