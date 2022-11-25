@@ -2,6 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// IMP question
 // Problem => Merge K Sorted Arrays | You would be given a 2D array i.e multiple sorted arrays within a single array | you need to merge all the sorted arrays and into a single array and return that array
 // Problem => Now, while iterating any 2D array , we use arr[i][j] i.e row's index and col's index | so , first create a min heap and insert all the starting elem 1st elem of all arrays | insert it in the form of nodes
 // Create a Node class to create node && each node will represent the data in the array and the position of the elem in the array (i.e ith(row) & jth(col) position) // insert all start/1st elem of all arrays in the minHeap in form of nodes
