@@ -4,6 +4,7 @@
 using namespace std;
 
 // a map is a data structure which stores data in key:value pairs
+// insertion, deletion & searching in map is done in O(1) time complexity
 
 int main() {
 
