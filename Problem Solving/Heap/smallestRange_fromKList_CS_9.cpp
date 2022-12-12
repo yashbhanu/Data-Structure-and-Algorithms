@@ -10,6 +10,8 @@ using namespace std;
 // push the starting elems of k-list in form of Nodes(Nodes will have elem data, row & col position in 2D array) //assign range value start = min & end = max //
 //  as its minHeap , fetch minimum val from the top // update the min. value from exsiting min val & min val fetched from minHeap top // pop the min value // update the range , check if max elem - min elem is less than end - start , check for all elem in array and keep storing the shortest/minimum range.....
 // ....using end & start // check for the other elems, keep updating maxi value , push the elems in the minHeap, again extract min value from heap , check range , update if shorttest/minimum // keep doing till heap is empty & later return the shortest range by (end-start+1)
+//dry run
+// https://www.codingninjas.com/codestudio/problems/smallest-range-from-k-sorted-list_1069356?leftPanelTab=0&utm_source=youtube&utm_medium=affiliate&utm_campaign=Lovebabbar
 
 
 //custom Node to insert in minHeap // which shall have array's element data nd row & col position in 2D array
