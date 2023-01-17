@@ -89,6 +89,39 @@ class Trie {
         bool searchWord(string word) {
             return searchUtil(root, word);      // which call another func an gives root node and word
         }
+
+        // to find a word in trie && if word exists then make is terminal node as false so the word is removed //takes root node and word as arg
+        void removeUtil(TrieNode* root, string word) {
+
+            //base case     // if word has ended that means we are on last node(char) , if its terminal node then make it false (i.e word removed) and return
+            if(word.length() == 0) {
+                if(root -> isTerminal) {
+                    root ->isTerminal = false;
+                    return ;
+                }
+            }
+
+            int index = word[0] - 'A';          // find index of the first "char" in word
+            TrieNode* child;                    // create a pointer which shall point to the child node 
+
+            //present //if node(char) is present move forward
+            if(root -> children[index] != NULL) {
+                child = root -> children[index];        //move forward
+            }
+            else {
+                //absent
+                cout << "Word doesnt exists" << endl;
+            }
+
+            //RECURSION     // handle for the remaining char.s in word
+            return removeUtil(child, word.substr(1));
+
+        }
+
+        //removing // give word
+        void removeWord(string word) {
+            return removeUtil(root, word);      // which call another func an gives root node and word
+        }
 };
 
 int main() {
@@ -98,6 +131,9 @@ int main() {
     t->insertWord("MAN");
     cout << "Present or not " << t ->searchWord("ARM") << endl;         // check if "ARM" exists
     cout << "Present or not " << t ->searchWord("MANY") << endl;
+
+    t->removeWord("ARMA");
+    cout << "Present or not " << t ->searchWord("ARM") << endl;         // check if "ARM" exists
 
 
 return 0;
